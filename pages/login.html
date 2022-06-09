@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../dist/css/style.css">
+    <title>Login</title>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-3">
+                    <div class="logo mt-5">
+                        <div class="img-fluid text-center"><img src="../src/images/logo.png" alt=""></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="row justify-content-around">
+                <div class="col-md-6 align-items-center mt-5">
+                    <div class="welcome mt-5 pt-5">
+                        <h2 class="fw-bold text-blue text-center text-md-start">Bem vindo(a)!</h2>
+                        <p class="text-blue fw-light text-center text-md-start">Para entrar no Sispacamp basta logar a
+                            sua conta do SUAP.</p>
+                        <div id="btn-suap" class="button-login mt-5 text-center text-md-start">
+                            <button type="submit" class="btn  bg-green  py-3 px-5"><a href="index.html" 
+                                    class="text-decoration-none fw-bold text-white">LOGAR COM SUAP</a></button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-6">
+                    <div class="tour">
+                        <img src="../src/images/tour.png" alt="" class="img-fluid ">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+
+    </footer>
+
+
+    <script src="../src/js/index.js"></script>
+    <script src="../src/js/js.cookie.js"></script>
+    <script src="../src/js/settings.js"></script>
+    <script src="../src/js/client.js"></script>
+    <script>
+        var suap = new SuapClient(SUAP_URL, CLIENT_ID, REDIRECT_URI, SCOPE);
+        suap.init();
+        $(document).ready(function () {
+            $("#btn-suap").attr('href', suap.getLoginURL());
+            if (suap.isAuthenticated()) {
+                var scope = suap.getToken().getScope();
+                var callback = function (response) {
+                    //$("#ident").text(JSON.stringify(response, null, 4)); //aqui vai mostrar todos os dados possíveis.
+                    $("#ident").text(response.identificacao);
+                    $("#nome").text(response.nome);
+                    $("#email").text(response.email);
+                    $("#campus").text(response.campus);
+                    //aqui você vai adicionando os outros campos possíveis.
+                };
+                suap.getResource(scope, callback);
+            } else {
+                suap.logout();
+                window.location.href = "login.html";
+            }
+        });
+        $("#suap-logout-button").click(function () {
+            suap.logout();
+            window.location.href = "login.html";
+        });
+    </script>
+
+</body>
+
+</html>

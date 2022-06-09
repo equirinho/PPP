@@ -1,0 +1,13 @@
+
+$green:#29A55A; 
+$blue:#0C2A43;
+
+
+
+$theme-colors:(
+    "green":$green,
+    "blue":$blue,
+)!default;
+
+//buttons
+$btn-border-radius:5px;
