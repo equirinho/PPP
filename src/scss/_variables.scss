@@ -1,13 +1,21 @@
 
 $green:#29A55A; 
 $blue:#0C2A43;
-
+$gray:#5F5F5F;
 
 
 $theme-colors:(
     "green":$green,
     "blue":$blue,
+    "gray":$gray,
 )!default;
 
 //buttons
 $btn-border-radius:5px;
+
+
+//accordion configs
+
+$accordion-button-bg:                     #ffffff;
+$accordion-button-focus-border-color:     none;
+$accordion-button-active-bg:              #ffffff;
